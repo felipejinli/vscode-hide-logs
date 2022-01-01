@@ -1,0 +1,48 @@
+{
+	"scopeName": "source.cpp.cpdebug",
+	"fileTypes": [
+		"cpp",
+		"c++",
+		"c"
+	],
+	"patterns": [
+		{
+			"include": "#expression"
+		}
+	],
+	"repository": {
+		"expression": {
+			"patterns": [
+				{
+					"include": "#clog-db"
+				},
+				{
+					"include": "#indent-DB"
+				},
+				{
+					"include": "#array-db"
+				},
+				{
+					"include": "#sample"
+				}
+			]
+		},
+		"clog-db": {
+			"begin": "^\\s*clog",
+			"end": "<<[^;]+;",
+			"name": "cpdebug.clog"
+		},
+		"indent-DB": {
+			"match": "^\\s*DB\\(\\);",
+			"name": "cpdebug.indentdb"
+		},
+		"array-db": {
+			"match": "^\\s*dba(2)?\\([^;]+\\);",
+			"name": "cpdebug.arraydb"
+		},
+		"sample": {
+			"match": "clog",
+			"name": "cpdebug.sample"
+		}
+	}
+}

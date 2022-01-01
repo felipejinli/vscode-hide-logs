@@ -1,0 +1,115 @@
+{
+	"name": "vscode-hide-logs",
+	"displayName": "Hide Logs",
+	"description": "It allows you to hide/show debug logs in the code.",
+	"icon": "assets/hide-logs.png",
+	"version": "1.0.0",
+	"preview": false,
+	"publisher": "felipejinli",
+	"galleryBanner": {
+		"color": "#011627",
+		"theme": "dark"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/felipejinli/vscode-hide-logs"
+	},
+	"engines": {
+		"vscode": "^1.53.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"keywords": [
+		"Comments"
+	],
+	"activationEvents": [
+		"*",
+		"onCommand:hideLogs.hide",
+		"onCommand:hideLogs.show"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"configuration": {
+			"title": "Hide Logs: Configuration",
+			"properties": {
+				"hideLogs.defaultEnabled": {
+					"type": "boolean",
+					"description": "Specify if the hide logs extension is by default enabled on start of the project.",
+					"default": false
+				},
+				"hideLogs.cleanStart": {
+					"type": "boolean",
+					"description": "Specify if you want to reset to the default behaviour when you start a new Visual Studio Code instance.",
+					"default": true
+				}
+			},
+			"languages": [
+				{
+					"id": "cpp",
+					"extensions": [
+						".cpp"
+					]
+				}
+			],
+			"grammars": [
+				{
+					"language": "cpp",
+					"scopeName": "source.cpp",
+					"path": "./syntaxes/cpp.tmGrammar.json",
+					"injectTo": [
+						"source.cpp"
+					]
+				}
+			]
+		},
+		"commands": [
+			{
+				"command": "hideLogs.hide",
+				"title": "Hide Logs: Hide all logs (clog|DB|dba(|dba2()",
+				"icon": "$(tasklist)"
+			},
+			{
+				"command": "hideLogs.show",
+				"title": "Hide Logs: Show all logs (clog|DB|dba(|dba2()",
+				"icon": "$(three-bars)"
+			}
+		],
+		"menus": {
+			"editor/title": [
+				{
+					"command": "hideLogs.show",
+					"group": "navigation",
+					"when": "hideLogsEnabled == false"
+				},
+				{
+					"command": "hideLogs.hide",
+					"group": "navigation",
+					"when": "hideLogsEnabled == true"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"vscode:publish": "vsce publish",
+		"compile": "tsc -p ./",
+		"lint": "eslint src --ext ts",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.0.0",
+		"@types/node": "^14.0.27",
+		"@types/vscode": "^1.53.0",
+		"@typescript-eslint/eslint-plugin": "^4.1.1",
+		"@typescript-eslint/parser": "^4.1.1",
+		"eslint": "^7.9.0",
+		"glob": "^7.1.6",
+		"mocha": "^8.1.3",
+		"typescript": "^4.0.2",
+		"vscode-test": "^1.4.0"
+	}
+}
